@@ -11,61 +11,89 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-// TASK - to fix it.
-int main(void)
+void error_handling(int err)
 {
-
-    pid_t pid;
-
-    // C-c
-    //signal(SIGINT, SIG_IGN);
-    signal(SIGINT, SIG_DFL);
-
-    // >ctrl-\ /
-    // signal(SIGQUIT, SIG_IGN);
-
-    pid = fork();
-    if (pid == 0)
+    if (err == 4)
+        printf("PATH not readable from ENVP\n");
+    else if (err == 1)
     {
+        printf("INPUT_ERROR\n");
+    }
+    else if (err == 2)
+    {
+        printf("Problems with malloc\n");
+        exit(1);
+    }
+    exit(EXIT_FAILURE);
+}
+
+// TASK - to fix it.
+int main(int argc, char **argv)
+{
+    char *input;
+    char *prompt;
+
+    if (argc != 1)
+        error_handling(1);
+    else if (argc == 1)
+    {
+        prompt = strdup("exercise>");
+        input = NULL;
         while (1)
         {
-            char *prompt;
-            prompt = strdup("mon_bijou>");
-            char *input;
-            input = NULL;
-            while (1)
+            input = readline(prompt);
+            if (!input)
             {
-                input = readline(prompt);
-                if (!strncmp(input, "exit", strlen(input)))
+                free(prompt);
+                exit(EXIT_FAILURE);
+            }
+            else if (!*input)
+                free(input);
+            else if (*input)
+            {
+                pid_t pid;
+
+                // signal(SIGINT, SIG_IGN);
+                signal(SIGINT, SIG_DFL);
+                // >ctrl-\ /
+                // signal(SIGQUIT, SIG_IGN);
+                pid = fork();
+                if (pid == 0)
                 {
-                    free(input);
-                    free(prompt);
-                    exit(EXIT_SUCCESS);
+                    while (1)
+                    {
+                        char *ch_prompt;
+                        ch_prompt = strdup("mon_bijou>");
+                        char *ch_input;
+                        ch_input = NULL;
+                        while (1)
+                        {
+                            ch_input = readline(ch_prompt);
+                            if (!strncmp(ch_input, "exit", strlen(ch_input)))
+                            {
+                                free(ch_input);
+                                free(ch_prompt);
+                                exit(EXIT_SUCCESS);
+                            }
+                            if (*input)
+                            {
+                                add_history(ch_input);
+                                free(ch_input);
+                            }
+                        }
+                    }
                 }
-                if (*input)
+                else
                 {
-                    add_history(input);
+                    waitpid(pid, NULL, 0);
                     free(input);
+                    input = NULL;
+                    printf("Parent's last action\n");
                 }
             }
         }
-    }
-    else
-    {
-        sleep(2);
-        kill(pid, SIGKILL);
-        waitpid(pid, NULL, 0);
-        
-        // while (1)
-        // {
-        //     sleep(2);
-        //     printf("\nChild is killed\n");
-        // }
-        
-        printf("\nChild is killed\n");
-        printf("Parent's last action\n");
+        free(prompt);
+		prompt = NULL;
     }
     return (0);
 }
-
-
