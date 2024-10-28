@@ -33,6 +33,11 @@ int main(int argc, char **argv)
     char *input;
     char *prompt;
 
+    // signal(SIGINT, SIG_IGN);
+    signal(SIGINT, SIG_DFL);
+
+    // >ctrl-\ /
+    signal(SIGQUIT, SIG_IGN);
     if (argc != 1)
         error_handling(1);
     else if (argc == 1)
@@ -53,10 +58,6 @@ int main(int argc, char **argv)
             {
                 pid_t pid;
 
-                // signal(SIGINT, SIG_IGN);
-                signal(SIGINT, SIG_DFL);
-                // >ctrl-\ /
-                // signal(SIGQUIT, SIG_IGN);
                 pid = fork();
                 if (pid == 0)
                 {
