@@ -5,8 +5,8 @@
 void signal_handler(int signum) 
 {
     (void)signum;
-  printf("Received SIGINT %d!\n", signum);
-  exit(0);
+    printf("Received SIGINT %d!\n", signum);
+    exit(0);
 }
 
 int main() 

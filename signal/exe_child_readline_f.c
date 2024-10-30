@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 // to be able to work with function readline
-// we also have to include -lreadline
+// we also have to include a flag -lreadline to compile
 #include <readline/history.h>
 #include <readline/readline.h>
 // pid_t
@@ -11,7 +11,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-// Faulty Terminal after execution.
+// On WSL - Faulty Terminal after execution.
 /* The readline library in C can interfere with terminal state because 
 it modifies terminal settings, like disabling canonical mode and 
 echoing, to handle input more interactively. When a process using 
@@ -70,8 +70,8 @@ int main(void)
         
         // while (1)
         // {
-        //     sleep(2);
-        //     printf("\nChild is killed\n");
+            // sleep(2);
+            // printf("\nChild is killed\n");
         // }
         
         printf("\nChild is killed\n");
