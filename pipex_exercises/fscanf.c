@@ -1,4 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fscanf.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/16 19:16:00 by mpeshko           #+#    #+#             */
+/*   Updated: 2024/12/16 19:18:08 by mpeshko          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
+
 #include <stdio.h>
+
+// fscanf input format conversion
+// fcanf() reads input from the stream pointer FILE *stream
 
 int main(void)
 {

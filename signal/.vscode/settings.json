@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "readline.h": "c",
-        "types.h": "c"
+        "types.h": "c",
+        "cerrno": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
