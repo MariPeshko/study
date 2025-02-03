@@ -68,11 +68,11 @@ int main(void)
         kill(pid, SIGKILL);
         waitpid(pid, NULL, 0);
         
-        // while (1)
-        // {
-            // sleep(2);
-            // printf("\nChild is killed\n");
-        // }
+        while (1)
+        {
+            sleep(2);
+            printf("\nChild is killed\n");
+        }
         
         printf("\nChild is killed\n");
         printf("Parent's last action\n");
